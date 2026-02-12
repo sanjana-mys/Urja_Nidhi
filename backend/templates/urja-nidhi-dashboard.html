@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URJA NIDHI - AI-Powered Biogas & Agriculture Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Fira+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ff88;
+            --secondary: #00d4ff;
+            --dark: #0a0e27;
+            --darker: #050814;
+            --accent: #ff3d71;
+            --warning: #ffd93d;
+            --success: #6bcf7f;
+            --card-bg: rgba(15, 25, 50, 0.7);
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(0, 255, 136, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Fira Sans', sans-serif;
+            background: var(--darker);
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 61, 113, 0.05) 0%, transparent 50%);
+            animation: bgShift 15s ease-in-out infinite;
+        }
+
+        @keyframes bgShift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, 20px) scale(1.05); }
+        }
+
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            background: rgba(10, 14, 39, 0.8);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .logo::after {
+            content: 'NIDHI';
+            position: absolute;
+            top: -8px;
+            right: -80px;
+            font-size: 0.5rem;
+            color: var(--accent);
+            font-weight: 400;
+            letter-spacing: 3px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 3rem 4rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-family: 'Space Mono', monospace;
+            letter-spacing: 2px;
+        }
+
+        /* Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Multipage Tabs */
+        .page-tabs {
+            display: inline-flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 999px;
+            padding: 0.3rem;
+            background: rgba(10, 14, 39, 0.8);
+            border: 1px solid var(--border);
+        }
+
+        .tab-button {
+            padding: 0.5rem 1.5rem;
+            border-radius: 999px;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--dark);
+            box-shadow: 0 6px 18px rgba(0, 255, 136, 0.3);
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px rgba(0, 255, 136, 0.2);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: var(--glass);
+            border: 1px solid var(--border);
+        }
+
+        .sensor-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin: 1rem 0;
+            background: linear-gradient(135deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sensor-unit {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-left: 0.5rem;
+        }
+
+        .sensor-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .status-normal {
+            background: rgba(107, 207, 127, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .status-warning {
+            background: rgba(255, 217, 61, 0.2);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .status-critical {
+            background: rgba(255, 61, 113, 0.2);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        /* Large Cards */
+        .large-card {
+            grid-column: span 2;
+        }
+
+        .full-card {
+            grid-column: span 3;
+        }
+
+        /* Weather Section */
+        .weather-container {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .weather-main {
+            flex: 1;
+        }
+
+        .weather-temp {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--warning), #ff9a3d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .weather-desc {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0.5rem;
+        }
+
+        .weather-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .weather-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .weather-icon {
+            font-size: 2rem;
+        }
+
+        .rainfall-prediction {
+            flex: 1;
+            padding: 1.5rem;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .rainfall-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--secondary);
+            margin: 0.5rem 0;
+        }
+
+        .rainfall-confidence {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Crop Recommendation */
+        .crop-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .crop-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .crop-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .crop-card:hover::before {
+            left: 100%;
+        }
+
+        .crop-card:hover {
+            transform: scale(1.05);
+            border-color: var(--primary);
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .crop-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .crop-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .crop-suitability {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.5rem;
+        }
+
+        .suitability-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .suitability-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+            transition: width 0.6s ease-out;
+        }
+
+        /* NPK Chart */
+        .npk-container {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .npk-bars {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .npk-bar {
+            position: relative;
+        }
+
+        .npk-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .npk-value {
+            font-family: 'Orbitron', monospace;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .npk-track {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .npk-fill {
+            height: 100%;
+            border-radius: 6px;
+            position: relative;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .npk-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .nitrogen { background: linear-gradient(90deg, #00ff88, #00d4ff); }
+        .phosphorus { background: linear-gradient(90deg, #ffd93d, #ff9a3d); }
+        .potassium { background: linear-gradient(90deg, #ff3d71, #ff6b9d); }
+
+        .npk-recommendation {
+            flex: 1;
+            padding: 1.5rem;
+            background: rgba(0, 255, 136, 0.05);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .recommendation-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .recommendation-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* AI Insights */
+        .ai-insight {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--glass);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+
+        .ai-insight:hover {
+            background: rgba(0, 255, 136, 0.05);
+            border-color: var(--primary);
+        }
+
+        .insight-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .insight-content {
+            flex: 1;
+        }
+
+        .insight-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .insight-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+        }
+
+        /* Action Button */
+        .btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--dark);
+            border: none;
+            border-radius: 8px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Data Table */
+        .data-table-wrapper {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .data-table-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            font-family: 'Space Mono', monospace;
+            min-width: 900px;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 0.6rem 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            white-space: nowrap;
+        }
+
+        .data-table th {
+            text-align: left;
+            color: rgba(255, 255, 255, 0.8);
+            position: sticky;
+            top: 0;
+            background: rgba(5, 8, 20, 0.95);
+            backdrop-filter: blur(12px);
+            z-index: 1;
+        }
+
+        .data-table tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .data-table tr:hover td {
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .table-note {
+            margin-top: 0.75rem;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .large-card, .full-card {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1.5rem 2rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .large-card, .full-card {
+                grid-column: span 1;
+            }
+            
+            .crop-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .weather-container,
+            .npk-container {
+                flex-direction: column;
+            }
+        }
+
+        /* Pulse Animation for Live Data */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .live-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            margin-left: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="noise"></div>
+
+    <header>
+        <div class="logo">URJA</div>
+        <nav>
+            <a href="#dashboard">DASHBOARD</a>
+            <a href="#sensors">SENSORS</a>
+            <a href="#weather">WEATHER</a>
+            <a href="#crops">CROPS</a>
+            <a href="#insights">AI INSIGHTS</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h1>AI-Powered Biogas Intelligence</h1>
+            <p>REAL-TIME MONITORING • WEATHER PREDICTION • SMART AGRICULTURE</p>
+        </div>
+        
+        <div class="page-tabs">
+            <button class="tab-button active" data-page="overview">Overview</button>
+            <button class="tab-button" data-page="data">Data Comparison</button>
+        </div>
+
+        <div class="page-section active" id="page-overview">
+
+        <!-- Sensor Dashboard -->
+        <div class="dashboard-grid" id="dashboard">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">METHANE SENSOR</div>
+                    <div class="card-icon">🔥</div>
+                </div>
+                <div>
+                    <span class="sensor-value" id="methane-value">0</span>
+                    <span class="sensor-unit">%</span>
+                </div>
+                <span class="sensor-status status-normal" id="methane-status">NORMAL</span>
+                <span class="live-indicator"></span>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">PRESSURE</div>
+                    <div class="card-icon">⚡</div>
+                </div>
+                <div>
+                    <span class="sensor-value" id="pressure-value">0</span>
+                    <span class="sensor-unit">kPa</span>
+                </div>
+                <span class="sensor-status status-normal" id="pressure-status">NORMAL</span>
+                <span class="live-indicator"></span>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">TEMPERATURE</div>
+                    <div class="card-icon">🌡️</div>
+                </div>
+                <div>
+                    <span class="sensor-value" id="temp-value">0</span>
+                    <span class="sensor-unit">°C</span>
+                </div>
+                <span class="sensor-status status-normal" id="temp-status">NORMAL</span>
+                <span class="live-indicator"></span>
+            </div>
+        </div>
+
+        <!-- Weather & Rainfall Prediction -->
+        <div class="dashboard-grid" id="weather">
+            <div class="card large-card">
+                <div class="card-header">
+                    <div class="card-title">WEATHER & RAINFALL PREDICTION</div>
+                    <div class="card-icon">🌦️</div>
+                </div>
+                <div class="weather-container">
+                    <div class="weather-main">
+                        <div class="weather-temp" id="weather-temp">--°C</div>
+                        <div class="weather-desc" id="weather-desc">Loading weather data...</div>
+                        <div class="weather-details">
+                            <div class="weather-item">
+                                <span>💧</span>
+                                <span>Humidity: <strong id="humidity">--%</strong></span>
+                            </div>
+                            <div class="weather-item">
+                                <span>💨</span>
+                                <span>Wind: <strong id="wind">-- km/h</strong></span>
+                            </div>
+                            <div class="weather-item">
+                                <span>☁️</span>
+                                <span>Clouds: <strong id="clouds">--%</strong></span>
+                            </div>
+                            <div class="weather-item">
+                                <span>🌡️</span>
+                                <span>Feels: <strong id="feels-like">--°C</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rainfall-prediction">
+                        <div style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.5); font-family: 'Space Mono', monospace;">AI RAINFALL FORECAST</div>
+                        <div class="rainfall-value" id="rainfall-prediction">Analyzing...</div>
+                        <div class="rainfall-confidence" id="rainfall-confidence">Computing probability...</div>
+                        <div class="rainfall-confidence" id="rainfall-next" style="margin-top: 0.5rem;">Next 7 days: <strong id="rainfall-7day">--</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">BIOGAS YIELD</div>
+                    <div class="card-icon">⚗️</div>
+                </div>
+                <div>
+                    <span class="sensor-value" id="biogas-yield">0.0</span>
+                    <span class="sensor-unit">m³/day</span>
+                </div>
+                <div style="margin-top: 1rem; font-size: 0.9rem; color: rgba(255, 255, 255, 0.6);">
+                    Energy Value: <strong style="color: var(--warning);">₹<span id="energy-value">0</span></strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- NPK Analysis -->
+        <div class="dashboard-grid">
+            <div class="card full-card">
+                <div class="card-header">
+                    <div class="card-title">MANURE NUTRIENT ANALYSIS (NPK)</div>
+                    <div class="card-icon">🌱</div>
+                </div>
+                <div class="npk-container">
+                    <div class="npk-bars">
+                        <div class="npk-bar">
+                            <div class="npk-label">
+                                <span>Nitrogen (N)</span>
+                                <span class="npk-value" id="nitrogen-value">0%</span>
+                            </div>
+                            <div class="npk-track">
+                                <div class="npk-fill nitrogen" id="nitrogen-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="npk-bar">
+                            <div class="npk-label">
+                                <span>Phosphorus (P)</span>
+                                <span class="npk-value" id="phosphorus-value">0%</span>
+                            </div>
+                            <div class="npk-track">
+                                <div class="npk-fill phosphorus" id="phosphorus-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="npk-bar">
+                            <div class="npk-label">
+                                <span>Potassium (K)</span>
+                                <span class="npk-value" id="potassium-value">0%</span>
+                            </div>
+                            <div class="npk-track">
+                                <div class="npk-fill potassium" id="potassium-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="npk-recommendation">
+                        <div class="recommendation-title">FERTILIZER RECOMMENDATION</div>
+                        <div class="recommendation-text" id="npk-recommendation">
+                            Analyzing soil and manure data to provide optimal fertilizer recommendations...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Crop Recommendations -->
+        <div class="dashboard-grid" id="crops">
+            <div class="card full-card">
+                <div class="card-header">
+                    <div class="card-title">AI CROP CYCLE RECOMMENDATIONS</div>
+                    <div class="card-icon">🌾</div>
+                </div>
+                <div style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.6); margin-bottom: 1.5rem;">
+                    Based on weather conditions, NPK values, and seasonal patterns
+                </div>
+                <div class="crop-grid" id="crop-recommendations">
+                    <!-- Crops will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Insights -->
+        <div class="dashboard-grid" id="insights">
+            <div class="card full-card">
+                <div class="card-header">
+                    <div class="card-title">AI-POWERED INSIGHTS</div>
+                    <div class="card-icon">🤖</div>
+                </div>
+                <div id="ai-insights">
+                    <!-- Insights will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+        </div> <!-- end page-overview -->
+
+        <div class="page-section" id="page-data">
+            <div class="data-table-wrapper">
+                <div class="data-table-title">Biogas & Agriculture Attribute Comparison</div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>timestamp</th>
+                            <th>waste_quantity (kg/day)</th>
+                            <th>cn_ratio</th>
+                            <th>moisture_level (%)</th>
+                            <th>temperature (°C)</th>
+                            <th>ph</th>
+                            <th>biogas_pressure (kPa)</th>
+                            <th>methane_concentration (%)</th>
+                            <th>daily_biogas_yield (m³/day)</th>
+                            <th>methane_yield (m³/day)</th>
+                            <th>energy_equivalent (kWh/day)</th>
+                            <th>slurry_volume (m³/day)</th>
+                            <th>nitrogen_concentration (%)</th>
+                            <th>phosphorus_concentration (%)</th>
+                            <th>potassium_concentration (%)</th>
+                            <th>crop_type</th>
+                            <th>manure_equivalent_n (kg N/day)</th>
+                            <th>external_fertilizer_required</th>
+                            <th>waste_collection_cost (₹/day)</th>
+                            <th>energy_value (₹/day)</th>
+                            <th>fertilizer_savings (₹/day)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data-table-body">
+                        <!-- Filled dynamically from live data -->
+                    </tbody>
+                </table>
+                <div class="table-note">
+                    Values are derived from the real-time dashboard sensors, NPK analysis, and crop recommendations to create a unified biogas–agriculture dataset.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const WEATHER_API_KEY = 'YOUR_OPENWEATHER_API_KEY'; // Replace with actual key
+        const LOCATION = { lat: 12.2958, lon: 76.6394 }; // Mysuru coordinates
+
+        // Shared state for comparison table
+        const currentMetrics = {
+            timestamp: '',
+            methane: 0,
+            pressure: 0,
+            temp: 0,
+            biogasYield: 0,
+            energyValue: 0,
+            nitrogen: 0,
+            phosphorus: 0,
+            potassium: 0,
+            humidity: 0,
+            rainfallProb: 0,
+            rainfall7day: 0,
+            topCrop: ''
+        };
+
+        function setupPageTabs() {
+            const buttons = document.querySelectorAll('.tab-button');
+            const sections = document.querySelectorAll('.page-section');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const target = button.getAttribute('data-page');
+
+                    buttons.forEach(b => b.classList.toggle('active', b === button));
+                    sections.forEach(section => {
+                        section.classList.toggle(
+                            'active',
+                            section.id === `page-${target}`
+                        );
+                    });
+                });
+            });
+        }
+        
+        // Simulated sensor data (replace with actual IoT data)
+       
+
+        function updateStatus(elementId, value, min, max) {
+            const element = document.getElementById(elementId);
+            if (value < min) {
+                element.className = 'sensor-status status-warning';
+                element.textContent = 'LOW';
+            } else if (value > max) {
+                element.className = 'sensor-status status-critical';
+                element.textContent = 'HIGH';
+            } else {
+                element.className = 'sensor-status status-normal';
+                element.textContent = 'NORMAL';
+            }
+        }
+        function fetchLiveSensorData() {
+    const sensorRef = database.ref("sensorData");
+
+    sensorRef.on("value", (snapshot) => {
+        const data = snapshot.val();
+        if (!data) return;
+
+        const methane = data.methane_ppm || 0;
+        const pressure = data.pressure_voltage || 0;
+        const temp = data.temperature || 0;
+
+        document.getElementById("methane-value").textContent = methane.toFixed(1);
+        document.getElementById("pressure-value").textContent = pressure.toFixed(2);
+        document.getElementById("temp-value").textContent = temp.toFixed(1);
+
+        updateStatus("methane-status", methane, 50, 70);
+        updateStatus("pressure-status", pressure, 100, 110);
+        updateStatus("temp-status", temp, 30, 40);
+
+        const biogasYield = methane / 100;
+        document.getElementById("biogas-yield").textContent = biogasYield.toFixed(2);
+
+        const energyValue = biogasYield * 45;
+        document.getElementById("energy-value").textContent = energyValue.toFixed(0);
+    });
+}
+
+        // Weather API Integration
+        async function fetchWeatherData() {
+            try {
+                // Using free weather API (Open-Meteo) - no API key needed
+                const response = await fetch(
+                    `https://api.open-meteo.com/v1/forecast?latitude=${LOCATION.lat}&longitude=${LOCATION.lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,cloud_cover&daily=precipitation_probability_max,precipitation_sum&timezone=Asia/Kolkata`
+                );
+                const data = await response.json();
+
+                // Update current weather
+                const temp = Math.round(data.current.temperature_2m);
+                const humidity = data.current.relative_humidity_2m;
+                const windSpeed = Math.round(data.current.wind_speed_10m);
+                const clouds = data.current.cloud_cover;
+
+                document.getElementById('weather-temp').textContent = `${temp}°C`;
+                document.getElementById('weather-desc').textContent = getWeatherDescription(data.current.weather_code);
+                document.getElementById('humidity').textContent = `${humidity}%`;
+                document.getElementById('wind').textContent = `${windSpeed} km/h`;
+                document.getElementById('clouds').textContent = `${clouds}%`;
+                document.getElementById('feels-like').textContent = `${temp}°C`;
+
+                // Rainfall prediction
+                const rainfallProb = data.daily.precipitation_probability_max[0];
+                const rainfall7day = data.daily.precipitation_sum.slice(0, 7).reduce((a, b) => a + b, 0).toFixed(1);
+                
+                document.getElementById('rainfall-prediction').textContent = 
+                    rainfallProb > 70 ? 'High Probability' : rainfallProb > 40 ? 'Moderate' : 'Low Probability';
+                document.getElementById('rainfall-confidence').textContent = 
+                    `Today: ${rainfallProb}% chance of rain`;
+                document.getElementById('rainfall-7day').textContent = `${rainfall7day} mm`;
+
+                // Update shared metrics
+                currentMetrics.humidity = humidity;
+                currentMetrics.rainfallProb = rainfallProb;
+                currentMetrics.rainfall7day = Number(rainfall7day);
+
+                // Update NPK and crop recommendations based on weather
+                updateNPKData(temp, humidity, rainfallProb);
+                updateCropRecommendations(temp, humidity, rainfallProb, rainfall7day);
+                updateAIInsights(temp, humidity, rainfallProb, data);
+
+            } catch (error) {
+                console.error('Weather fetch error:', error);
+                // Fallback to simulated data
+                simulateWeatherData();
+            }
+        }
+
+        function getWeatherDescription(code) {
+            const descriptions = {
+                0: 'Clear Sky',
+                1: 'Mainly Clear',
+                2: 'Partly Cloudy',
+                3: 'Overcast',
+                45: 'Foggy',
+                48: 'Depositing Rime Fog',
+                51: 'Light Drizzle',
+                61: 'Light Rain',
+                63: 'Moderate Rain',
+                65: 'Heavy Rain',
+                71: 'Light Snow',
+                80: 'Rain Showers',
+                95: 'Thunderstorm'
+            };
+            return descriptions[code] || 'Unknown';
+        }
+
+        function simulateWeatherData() {
+            document.getElementById('weather-temp').textContent = '28°C';
+            document.getElementById('weather-desc').textContent = 'Partly Cloudy';
+            document.getElementById('humidity').textContent = '65%';
+            document.getElementById('wind').textContent = '12 km/h';
+            document.getElementById('clouds').textContent = '40%';
+            document.getElementById('feels-like').textContent = '30°C';
+            document.getElementById('rainfall-prediction').textContent = 'Moderate';
+            document.getElementById('rainfall-confidence').textContent = 'Today: 45% chance of rain';
+            document.getElementById('rainfall-7day').textContent = '23.5 mm';
+            
+            updateNPKData(28, 65, 45);
+            updateCropRecommendations(28, 65, 45, 23.5);
+            updateAIInsights(28, 65, 45, null);
+            currentMetrics.humidity = 65;
+            currentMetrics.rainfallProb = 45;
+            currentMetrics.rainfall7day = 23.5;
+            updateDataTable();
+        }
+
+        // NPK Data Update
+        function updateNPKData(temp, humidity, rainfall) {
+            // Simulate NPK based on temperature and moisture
+            const nitrogen = 2.5 + (humidity / 100) * 1.5;
+            const phosphorus = 1.8 + (temp / 40) * 0.8;
+            const potassium = 2.2 + (rainfall / 100) * 0.6;
+
+            document.getElementById('nitrogen-value').textContent = `${nitrogen.toFixed(1)}%`;
+            document.getElementById('phosphorus-value').textContent = `${phosphorus.toFixed(1)}%`;
+            document.getElementById('potassium-value').textContent = `${potassium.toFixed(1)}%`;
+
+            // Animate bars
+            setTimeout(() => {
+                document.getElementById('nitrogen-fill').style.width = `${(nitrogen / 5) * 100}%`;
+                document.getElementById('phosphorus-fill').style.width = `${(phosphorus / 5) * 100}%`;
+                document.getElementById('potassium-fill').style.width = `${(potassium / 5) * 100}%`;
+            }, 300);
+
+            // Recommendation
+            let recommendation = '';
+            if (nitrogen < 2.0) {
+                recommendation = 'Low nitrogen detected. Consider nitrogen-fixing legumes or urea supplementation. ';
+            } else if (nitrogen > 3.5) {
+                recommendation = 'Excellent nitrogen levels. Perfect for leafy vegetables and cereals. ';
+            } else {
+                recommendation = 'Good nitrogen balance. Suitable for most crops. ';
+            }
+
+            if (phosphorus < 1.5) {
+                recommendation += 'Add phosphate-rich amendments for root development.';
+            } else {
+                recommendation += 'Phosphorus adequate for flowering and fruiting crops.';
+            }
+
+            document.getElementById('npk-recommendation').textContent = recommendation;
+            
+            // Update shared metrics and table
+            currentMetrics.nitrogen = nitrogen;
+            currentMetrics.phosphorus = phosphorus;
+            currentMetrics.potassium = potassium;
+            updateDataTable();
+        }
+
+        // Comparison table update
+        function updateDataTable() {
+            const tbody = document.getElementById('data-table-body');
+            if (!tbody) return;
+
+            const methane = currentMetrics.methane;
+            const pressure = currentMetrics.pressure;
+            const temp = currentMetrics.temp;
+            const biogasYield = currentMetrics.biogasYield;
+            const energyValue = currentMetrics.energyValue;
+            const nitrogen = currentMetrics.nitrogen;
+            const phosphorus = currentMetrics.phosphorus;
+            const potassium = currentMetrics.potassium;
+            const humidity = currentMetrics.humidity || 65;
+            const rainfallProb = currentMetrics.rainfallProb || 0;
+            const rainfall7day = currentMetrics.rainfall7day || 0;
+            const cropType = currentMetrics.topCrop || 'Not determined';
+
+            const wasteQuantityNum = biogasYield > 0 ? biogasYield * 25 : 0; // approx kg/day
+            const wasteQuantity = wasteQuantityNum.toFixed(1);
+            const cnRatio = (24 + (humidity / 100) * 4).toFixed(1);
+            const moistureLevel = typeof humidity === 'number' ? humidity.toFixed(1) : humidity;
+            const ph = (7.0 + (rainfallProb - 50) / 200).toFixed(2);
+            const methaneYield = (biogasYield * (methane / 100)).toFixed(2);
+            const energyEquivalent = (biogasYield * 6).toFixed(2); // kWh/day
+            const slurryVolumeNum = wasteQuantityNum * 0.0012; // m³/day approx
+            const slurryVolume = slurryVolumeNum.toFixed(3);
+            const manureEquivalentNNum = nitrogen * slurryVolumeNum * 10; // rough kg N/day
+            const manureEquivalentN = manureEquivalentNNum.toFixed(2);
+            const wasteCollectionCost = (wasteQuantityNum * 0.5).toFixed(0); // ₹/day
+            const externalFertilizerRequired =
+                nitrogen > 3 || manureEquivalentNNum > 1.5 ? 'Low' : 'High';
+            const fertilizerSavings = (
+                (externalFertilizerRequired === 'Low' ? 0.6 : 0.3) *
+                (Number(energyValue) + 200)
+            ).toFixed(0);
+
+            const timestamp = currentMetrics.timestamp || new Date().toLocaleString();
+
+            tbody.innerHTML = `
+                <tr>
+                    <td>${timestamp}</td>
+                    <td>${wasteQuantity}</td>
+                    <td>${cnRatio}</td>
+                    <td>${moistureLevel}</td>
+                    <td>${temp}</td>
+                    <td>${ph}</td>
+                    <td>${pressure}</td>
+                    <td>${methane}</td>
+                    <td>${biogasYield}</td>
+                    <td>${methaneYield}</td>
+                    <td>${energyEquivalent}</td>
+                    <td>${slurryVolume}</td>
+                    <td>${typeof nitrogen === 'number' ? nitrogen.toFixed(1) : nitrogen}</td>
+                    <td>${typeof phosphorus === 'number' ? phosphorus.toFixed(1) : phosphorus}</td>
+                    <td>${typeof potassium === 'number' ? potassium.toFixed(1) : potassium}</td>
+                    <td>${cropType}</td>
+                    <td>${manureEquivalentN}</td>
+                    <td>${externalFertilizerRequired}</td>
+                    <td>${wasteCollectionCost}</td>
+                    <td>${energyValue}</td>
+                    <td>${fertilizerSavings}</td>
+                </tr>
+            `;
+        }
+
+        // Crop Recommendations
+        function updateCropRecommendations(temp, humidity, rainfall, rainfall7day) {
+            const crops = [];
+
+            // Decision logic based on weather and NPK
+            if (temp > 25 && humidity > 60 && rainfall > 40) {
+                crops.push({ name: 'Rice', icon: '🌾', suitability: 95 });
+                crops.push({ name: 'Sugarcane', icon: '🎋', suitability: 88 });
+            }
+            
+            if (temp < 30 && rainfall7day < 30) {
+                crops.push({ name: 'Wheat', icon: '🌾', suitability: 82 });
+                crops.push({ name: 'Chickpea', icon: '🫘', suitability: 85 });
+            }
+
+            // Legumes (good for nitrogen-poor soil)
+            crops.push({ name: 'Lentils', icon: '🫘', suitability: 78 });
+            crops.push({ name: 'Green Gram', icon: '🫛', suitability: 80 });
+
+            // Universal crops
+            if (temp > 20 && temp < 35) {
+                crops.push({ name: 'Tomato', icon: '🍅', suitability: 75 });
+                crops.push({ name: 'Spinach', icon: '🥬', suitability: 72 });
+            }
+
+            // Sort by suitability
+            crops.sort((a, b) => b.suitability - a.suitability);
+            
+            // Take top 6
+            const topCrops = crops.slice(0, 6);
+
+            // Update shared top crop for table
+            currentMetrics.topCrop = topCrops[0] ? topCrops[0].name : '';
+
+            const cropHTML = topCrops.map((crop, index) => `
+                <div class="crop-card" style="animation-delay: ${index * 0.1}s">
+                    <div class="crop-icon">${crop.icon}</div>
+                    <div class="crop-name">${crop.name}</div>
+                    <div class="crop-suitability">Suitability Score</div>
+                    <div class="suitability-bar">
+                        <div class="suitability-fill" style="width: ${crop.suitability}%"></div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('crop-recommendations').innerHTML = cropHTML;
+        }
+
+        // AI Insights
+        function updateAIInsights(temp, humidity, rainfall, weatherData) {
+            const insights = [];
+
+            // Temperature insight
+            if (temp > 35) {
+                insights.push({
+                    icon: '🌡️',
+                    title: 'High Temperature Alert',
+                    text: 'Digester temperature optimal for methane production. Consider increasing feed rate by 10% to maximize biogas yield.'
+                });
+            } else if (temp < 30) {
+                insights.push({
+                    icon: '❄️',
+                    title: 'Temperature Optimization',
+                    text: 'Temperature below optimal range. Consider insulation or solar heating to maintain 35-40°C for peak microbial activity.'
+                });
+            }
+
+            // Rainfall insight
+            if (rainfall > 60) {
+                insights.push({
+                    icon: '🌧️',
+                    title: 'Rainfall Forecast',
+                    text: 'High rainfall expected. Perfect timing for transplanting rice or other water-intensive crops. Prepare paddy fields.'
+                });
+            } else if (rainfall < 30) {
+                insights.push({
+                    icon: '☀️',
+                    title: 'Dry Period Ahead',
+                    text: 'Low rainfall probability. Focus on drought-resistant crops like millets, chickpeas, or implement drip irrigation.'
+                });
+            }
+
+            // Biogas optimization
+            insights.push({
+                icon: '⚗️',
+                title: 'Biogas Production Forecast',
+                text: `Current conditions predict ${(5.5 + Math.random()).toFixed(1)} m³/day biogas yield. Maintain C:N ratio at 25:1 for optimal microbial activity.`
+            });
+
+            // Nutrient cycling
+            insights.push({
+                icon: '🌱',
+                title: 'Nutrient Cycling Strategy',
+                text: 'Biogas slurry shows high nitrogen content. Apply 2-3 weeks before sowing legumes to maximize nitrogen fixation and reduce synthetic fertilizer dependency by 40%.'
+            });
+
+            // Economic insight
+            const savings = (Math.random() * 200 + 300).toFixed(0);
+            insights.push({
+                icon: '💰',
+                title: 'Economic Projection',
+                text: `Estimated monthly savings: ₹${savings} from biogas energy + ₹${(savings * 0.6).toFixed(0)} from fertilizer replacement. Annual ROI: 180%.`
+            });
+
+            const insightsHTML = insights.map((insight, index) => `
+                <div class="ai-insight" style="animation: fadeInUp 0.6s ease-out ${index * 0.1}s both">
+                    <div class="insight-icon">${insight.icon}</div>
+                    <div class="insight-content">
+                        <div class="insight-title">${insight.title}</div>
+                        <div class="insight-text">${insight.text}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('ai-insights').innerHTML = insightsHTML;
+        }
+
+        // Initialize
+        setupPageTabs();
+        fetchLiveSensorData();
+        fetchWeatherData();
+
+        
+
+        // Update weather every 10 minutes
+        setInterval(fetchWeatherData, 600000);
+    </script>
+
+ <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBiaKbd7QgKRIs2D3PCE5kWrH2NXqOVeYg",
+  databaseURL: "https://urja-nidhi-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "urja-nidhi"
+};
+
+  // Your Firebase Config
+  // Initialize Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+</script>
+   
+</body>
+</html>
