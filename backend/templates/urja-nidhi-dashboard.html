@@ -3,20 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URJA NIDHI - AI-Powered Biogas & Agriculture Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Fira+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Urja Nidhi - Smart Biogas & Farming for You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=DM+Sans:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #00ff88;
-            --secondary: #00d4ff;
-            --dark: #0a0e27;
-            --darker: #050814;
-            --accent: #ff3d71;
-            --warning: #ffd93d;
-            --success: #6bcf7f;
-            --card-bg: rgba(15, 25, 50, 0.7);
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(0, 255, 136, 0.2);
+            --primary: #2d6a4f;
+            --secondary: #40916c;
+            --dark: #1b4332;
+            --darker: #f0f4ee;
+            --accent: #d4a373;
+            --warning: #b8860b;
+            --success: #2d6a4f;
+            --card-bg: #ffffff;
+            --glass: rgba(45, 106, 79, 0.06);
+            --border: rgba(45, 106, 79, 0.25);
+            --text: #1b4332;
+            --text-muted: #52796f;
+            --header-bg: rgba(255, 255, 255, 0.92);
+            --bg-gradient: linear-gradient(160deg, #f7f9f4 0%, #e8efe3 50%, #f0f4ee 100%);
+        }
+
+        html[data-theme="dark"] {
+            --primary: #7c9a9e;
+            --secondary: #9ab4b8;
+            --dark: #e8eaed;
+            --darker: #1a1d24;
+            --accent: #c4a77d;
+            --warning: #c4a77d;
+            --success: #7c9a9e;
+            --card-bg: #252830;
+            --glass: rgba(124, 154, 158, 0.08);
+            --border: rgba(124, 154, 158, 0.2);
+            --text: #e8eaed;
+            --text-muted: #9ca3af;
+            --header-bg: rgba(26, 29, 36, 0.97);
+            --bg-gradient: linear-gradient(160deg, #1a1d24 0%, #252830 50%, #1a1d24 100%);
         }
 
         * {
@@ -26,14 +47,14 @@
         }
 
         body {
-            font-family: 'Fira Sans', sans-serif;
+            font-family: 'Nunito', sans-serif;
             background: var(--darker);
-            color: #fff;
+            color: var(--text);
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Animated Background */
+        /* Soft background */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -41,16 +62,13 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(255, 61, 113, 0.05) 0%, transparent 50%);
-            animation: bgShift 15s ease-in-out infinite;
+            background: var(--bg-gradient);
+            animation: bgShift 20s ease-in-out infinite;
         }
 
         @keyframes bgShift {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(20px, 20px) scale(1.05); }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.98; }
         }
 
         .noise {
@@ -60,19 +78,19 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.03;
+            opacity: 0.015;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
         /* Header */
         header {
-            padding: 2rem 4rem;
+            padding: 1.25rem 4rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border);
-            backdrop-filter: blur(10px);
-            background: rgba(10, 14, 39, 0.8);
+            border-bottom: 2px solid var(--border);
+            background: var(--header-bg);
+            box-shadow: 0 2px 12px rgba(45, 106, 79, 0.08);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -85,25 +103,21 @@
         }
 
         .logo {
-            font-family: 'Orbitron', monospace;
-            font-size: 2rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 2px;
-            position: relative;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: baseline;
+            gap: 0.35rem;
         }
 
-        .logo::after {
-            content: 'NIDHI';
-            position: absolute;
-            top: -8px;
-            right: -80px;
-            font-size: 0.5rem;
+        .logo-nidhi {
             color: var(--accent);
-            font-weight: 400;
-            letter-spacing: 3px;
+            font-weight: 600;
+            font-size: 1.6rem;
+            letter-spacing: 1px;
         }
 
         nav {
@@ -112,11 +126,11 @@
         }
 
         nav a {
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-muted);
             text-decoration: none;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
             transition: all 0.3s;
             position: relative;
         }
@@ -140,6 +154,67 @@
             width: 100%;
         }
 
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .theme-toggle {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--glass);
+            color: var(--text);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s;
+        }
+        .theme-toggle:hover {
+            border-color: var(--text-muted);
+            background: rgba(0, 0, 0, 0.04);
+        }
+        html[data-theme="dark"] .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+        }
+        html[data-theme="dark"] .theme-toggle .icon-light { display: none; }
+        html[data-theme="dark"] .theme-toggle .icon-dark { display: block; }
+        .theme-toggle .icon-dark { display: none; }
+        .theme-toggle .icon-light { display: block; }
+
+        .header-actions a.btn-nav {
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .header-actions a.btn-nav:hover {
+            color: var(--primary);
+        }
+        .header-actions a.btn-nav.btn-signup {
+            background: var(--primary);
+            color: var(--card-bg);
+        }
+        .header-actions a.btn-signup:hover {
+            filter: brightness(1.1);
+            color: var(--card-bg);
+        }
+
         /* Main Container */
         .container {
             max-width: 1600px;
@@ -160,21 +235,18 @@
         }
 
         .hero h1 {
-            font-family: 'Orbitron', monospace;
-            font-size: 3.5rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #fff, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 2.75rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--dark);
             line-height: 1.2;
         }
 
         .hero p {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.6);
-            font-family: 'Space Mono', monospace;
-            letter-spacing: 2px;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 600;
         }
 
         /* Grid Layout */
@@ -188,31 +260,32 @@
         /* Multipage Tabs */
         .page-tabs {
             display: inline-flex;
-            gap: 1rem;
+            gap: 0.5rem;
             margin-bottom: 2rem;
-            border-radius: 999px;
-            padding: 0.3rem;
-            background: rgba(10, 14, 39, 0.8);
+            border-radius: 12px;
+            padding: 0.35rem;
+            background: #ffffff;
             border: 1px solid var(--border);
+            box-shadow: 0 2px 8px rgba(45, 106, 79, 0.08);
         }
 
         .tab-button {
             padding: 0.5rem 1.5rem;
-            border-radius: 999px;
+            border-radius: 8px;
             border: none;
             background: transparent;
-            color: rgba(255, 255, 255, 0.7);
-            font-family: 'Space Mono', monospace;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
         }
 
         .tab-button.active {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--dark);
-            box-shadow: 0 6px 18px rgba(0, 255, 136, 0.3);
+            background: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(45, 106, 79, 0.25);
         }
 
         .page-section {
@@ -228,11 +301,11 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 2rem;
-            backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             animation: fadeInUp 0.6s ease-out both;
+            box-shadow: 0 4px 16px rgba(45, 106, 79, 0.08);
         }
 
         .card:nth-child(1) { animation-delay: 0.1s; }
@@ -248,16 +321,17 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
+            height: 4px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             opacity: 0;
             transition: opacity 0.3s;
+            border-radius: 16px 16px 0 0;
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
             border-color: var(--primary);
-            box-shadow: 0 10px 40px rgba(0, 255, 136, 0.2);
+            box-shadow: 0 12px 28px rgba(45, 106, 79, 0.15);
         }
 
         .card:hover::before {
@@ -272,66 +346,63 @@
         }
 
         .card-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.1rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.05rem;
             font-weight: 700;
             color: var(--primary);
-            letter-spacing: 1px;
+            letter-spacing: 0.3px;
         }
 
         .card-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             background: var(--glass);
             border: 1px solid var(--border);
         }
 
         .sensor-value {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.5rem;
-            font-weight: 900;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 2.25rem;
+            font-weight: 700;
             margin: 1rem 0;
-            background: linear-gradient(135deg, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary);
         }
 
         .sensor-unit {
-            font-family: 'Space Mono', monospace;
+            font-family: 'Nunito', sans-serif;
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.5);
+            color: var(--text-muted);
             margin-left: 0.5rem;
         }
 
         .sensor-status {
             display: inline-block;
-            padding: 0.3rem 0.8rem;
+            padding: 0.35rem 0.9rem;
             border-radius: 20px;
-            font-size: 0.75rem;
-            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            font-family: 'Nunito', sans-serif;
             font-weight: 700;
-            letter-spacing: 1px;
         }
 
         .status-normal {
-            background: rgba(107, 207, 127, 0.2);
+            background: rgba(45, 106, 79, 0.12);
             color: var(--success);
             border: 1px solid var(--success);
         }
 
         .status-warning {
-            background: rgba(255, 217, 61, 0.2);
+            background: rgba(184, 134, 11, 0.15);
             color: var(--warning);
             border: 1px solid var(--warning);
         }
 
         .status-critical {
-            background: rgba(255, 61, 113, 0.2);
+            background: rgba(212, 163, 115, 0.2);
             color: var(--accent);
             border: 1px solid var(--accent);
         }
@@ -357,18 +428,18 @@
         }
 
         .weather-temp {
-            font-family: 'Orbitron', monospace;
-            font-size: 4rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--warning), #ff9a3d);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 3.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 0.25rem;
         }
 
         .weather-desc {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.15rem;
+            color: var(--text-muted);
             margin-top: 0.5rem;
+            font-weight: 600;
         }
 
         .weather-details {
@@ -382,8 +453,9 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-family: 'Space Mono', monospace;
+            font-family: 'Nunito', sans-serif;
             font-size: 0.9rem;
+            color: var(--text);
         }
 
         .weather-icon {
@@ -393,23 +465,23 @@
         .rainfall-prediction {
             flex: 1;
             padding: 1.5rem;
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(45, 106, 79, 0.08);
             border-radius: 12px;
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            border: 1px solid var(--border);
         }
 
         .rainfall-value {
-            font-family: 'Orbitron', monospace;
-            font-size: 2rem;
-            font-weight: 900;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
             color: var(--secondary);
             margin: 0.5rem 0;
         }
 
         .rainfall-confidence {
             font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.6);
-            font-family: 'Space Mono', monospace;
+            color: var(--text-muted);
+            font-family: 'Nunito', sans-serif;
         }
 
         /* Crop Recommendation */
@@ -439,7 +511,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(45, 106, 79, 0.08), transparent);
             transition: left 0.5s;
         }
 
@@ -448,19 +520,19 @@
         }
 
         .crop-card:hover {
-            transform: scale(1.05);
+            transform: scale(1.03);
             border-color: var(--primary);
-            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
+            box-shadow: 0 6px 20px rgba(45, 106, 79, 0.15);
         }
 
         .crop-icon {
-            font-size: 3rem;
+            font-size: 2.75rem;
             margin-bottom: 1rem;
         }
 
         .crop-name {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.1rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.05rem;
             font-weight: 700;
             color: var(--primary);
             margin-bottom: 0.5rem;
@@ -468,13 +540,14 @@
 
         .crop-suitability {
             font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.6);
+            color: var(--text-muted);
             margin-bottom: 0.5rem;
+            font-weight: 600;
         }
 
         .suitability-bar {
             height: 6px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(45, 106, 79, 0.12);
             border-radius: 3px;
             overflow: hidden;
             margin-top: 0.5rem;
@@ -506,22 +579,24 @@
         }
 
         .npk-label {
-            font-family: 'Space Mono', monospace;
+            font-family: 'Nunito', sans-serif;
             font-size: 0.9rem;
+            font-weight: 600;
             margin-bottom: 0.5rem;
             display: flex;
             justify-content: space-between;
+            color: var(--text);
         }
 
         .npk-value {
-            font-family: 'Orbitron', monospace;
+            font-family: 'DM Sans', sans-serif;
             color: var(--primary);
             font-weight: 700;
         }
 
         .npk-track {
             height: 12px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(45, 106, 79, 0.12);
             border-radius: 6px;
             overflow: hidden;
             position: relative;
@@ -541,7 +616,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
             animation: shimmer 2s infinite;
         }
 
@@ -550,21 +625,22 @@
             100% { transform: translateX(100%); }
         }
 
-        .nitrogen { background: linear-gradient(90deg, #00ff88, #00d4ff); }
-        .phosphorus { background: linear-gradient(90deg, #ffd93d, #ff9a3d); }
-        .potassium { background: linear-gradient(90deg, #ff3d71, #ff6b9d); }
+        .nitrogen { background: linear-gradient(90deg, #2d6a4f, #40916c); }
+        .phosphorus { background: linear-gradient(90deg, #b8860b, #d4a373); }
+        .potassium { background: linear-gradient(90deg, #6b4d3d, #8b6356); }
 
         .npk-recommendation {
             flex: 1;
             padding: 1.5rem;
-            background: rgba(0, 255, 136, 0.05);
+            background: rgba(45, 106, 79, 0.06);
             border-radius: 12px;
             border: 1px solid var(--border);
         }
 
         .recommendation-title {
-            font-family: 'Orbitron', monospace;
+            font-family: 'DM Sans', sans-serif;
             font-size: 1rem;
+            font-weight: 700;
             color: var(--primary);
             margin-bottom: 1rem;
         }
@@ -572,7 +648,8 @@
         .recommendation-text {
             font-size: 0.95rem;
             line-height: 1.6;
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-muted);
+            font-weight: 500;
         }
 
         /* AI Insights */
@@ -589,20 +666,21 @@
         }
 
         .ai-insight:hover {
-            background: rgba(0, 255, 136, 0.05);
+            background: rgba(45, 106, 79, 0.08);
             border-color: var(--primary);
         }
 
         .insight-icon {
-            font-size: 1.5rem;
-            width: 40px;
-            height: 40px;
+            font-size: 1.4rem;
+            width: 42px;
+            height: 42px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 8px;
+            border-radius: 10px;
             flex-shrink: 0;
+            color: #ffffff;
         }
 
         .insight-content {
@@ -610,7 +688,7 @@
         }
 
         .insight-title {
-            font-family: 'Orbitron', monospace;
+            font-family: 'DM Sans', sans-serif;
             font-size: 0.95rem;
             font-weight: 700;
             color: var(--primary);
@@ -619,21 +697,21 @@
 
         .insight-text {
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-muted);
             line-height: 1.5;
+            font-weight: 500;
         }
 
         /* Action Button */
         .btn {
             padding: 1rem 2rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--dark);
+            color: #ffffff;
             border: none;
-            border-radius: 8px;
-            font-family: 'Orbitron', monospace;
+            border-radius: 10px;
+            font-family: 'Nunito', sans-serif;
             font-weight: 700;
             font-size: 1rem;
-            letter-spacing: 1px;
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
@@ -647,7 +725,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: left 0.5s;
         }
 
@@ -657,7 +735,7 @@
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+            box-shadow: 0 8px 24px rgba(45, 106, 79, 0.3);
         }
 
         /* Loading Animation */
@@ -665,7 +743,7 @@
             display: inline-block;
             width: 20px;
             height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
+            border: 3px solid rgba(45, 106, 79, 0.2);
             border-radius: 50%;
             border-top-color: var(--primary);
             animation: spin 1s linear infinite;
@@ -682,10 +760,11 @@
             border: 1px solid var(--border);
             padding: 1.5rem;
             overflow-x: auto;
+            box-shadow: 0 4px 16px rgba(45, 106, 79, 0.08);
         }
 
         .data-table-title {
-            font-family: 'Orbitron', monospace;
+            font-family: 'DM Sans', sans-serif;
             font-size: 1.1rem;
             font-weight: 700;
             color: var(--primary);
@@ -696,40 +775,42 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 0.8rem;
-            font-family: 'Space Mono', monospace;
+            font-family: 'Nunito', sans-serif;
             min-width: 900px;
         }
 
         .data-table th,
         .data-table td {
             padding: 0.6rem 0.8rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid var(--border);
             white-space: nowrap;
+            color: var(--text);
         }
 
         .data-table th {
             text-align: left;
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--primary);
+            font-weight: 700;
             position: sticky;
             top: 0;
-            background: rgba(5, 8, 20, 0.95);
-            backdrop-filter: blur(12px);
+            background: var(--card-bg);
             z-index: 1;
         }
 
         .data-table tr:nth-child(even) td {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(45, 106, 79, 0.04);
         }
 
         .data-table tr:hover td {
-            background: rgba(0, 255, 136, 0.05);
+            background: rgba(45, 106, 79, 0.08);
         }
 
         .table-note {
             margin-top: 0.75rem;
             font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.5);
-            font-family: 'Space Mono', monospace;
+            color: var(--text-muted);
+            font-family: 'Nunito', sans-serif;
+            font-weight: 500;
         }
 
         /* Responsive */
@@ -785,10 +866,170 @@
             display: inline-block;
             width: 8px;
             height: 8px;
-            background: var(--success);
+            background: var(--primary);
             border-radius: 50%;
             margin-left: 0.5rem;
             animation: pulse 2s infinite;
+        }
+
+        /* Auth modals */
+        .auth-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .auth-overlay.is-open {
+            display: flex;
+        }
+        .auth-modal {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+        .auth-modal h2 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.5rem;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+        }
+        .auth-form .form-group {
+            margin-bottom: 1.25rem;
+        }
+        .auth-form label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.4rem;
+        }
+        .auth-form input {
+            width: 100%;
+            padding: 0.65rem 0.9rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            background: var(--card-bg);
+            color: var(--text);
+        }
+        .auth-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .auth-form .auth-error,
+        .auth-form .auth-success {
+            font-size: 0.85rem;
+            padding: 0.5rem 0;
+            margin-bottom: 0.5rem;
+            border-radius: 6px;
+        }
+        .auth-form .auth-error {
+            color: #c53030;
+            background: rgba(197, 48, 48, 0.1);
+        }
+        .auth-form .auth-success {
+            color: var(--success);
+            background: rgba(45, 106, 79, 0.1);
+        }
+        .auth-form .btn-submit {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            margin-top: 0.5rem;
+            background: var(--primary);
+            color: var(--card-bg);
+            border: none;
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .auth-form .btn-submit:hover {
+            filter: brightness(1.08);
+        }
+        .auth-form .auth-footer {
+            margin-top: 1.25rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .auth-form .auth-footer a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .auth-form .auth-footer a:hover {
+            text-decoration: underline;
+        }
+        .auth-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.25rem;
+            line-height: 1;
+            padding: 0;
+            border-radius: 6px;
+        }
+        .auth-close:hover {
+            background: var(--glass);
+            color: var(--text);
+        }
+        .auth-modal-wrapper {
+            position: relative;
+        }
+        .auth-user {
+            display: none;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .auth-user.is-logged-in {
+            display: flex;
+        }
+        .auth-user .user-email {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            max-width: 140px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .auth-user .btn-logout {
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem 0;
+        }
+        .auth-user .btn-logout:hover {
+            color: var(--primary);
+        }
+        .header-actions .auth-links {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .header-actions .auth-user.is-logged-in ~ .auth-links {
+            display: none;
         }
     </style>
 </head>
@@ -797,205 +1038,268 @@
     <div class="noise"></div>
 
     <header>
-        <div class="logo">URJA</div>
-        <nav>
-            <a href="#dashboard">DASHBOARD</a>
-            <a href="#sensors">SENSORS</a>
-            <a href="#weather">WEATHER</a>
-            <a href="#crops">CROPS</a>
-            <a href="#insights">AI INSIGHTS</a>
-        </nav>
+        <div class="logo">URJA <span class="logo-nidhi">NIDHI</span></div>
+        <div class="header-actions">
+            <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light theme">
+                <span class="icon-light" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></span>
+                <span class="icon-dark" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+            </button>
+            <div class="auth-user" id="auth-user">
+                <span class="user-email" id="user-email"></span>
+                <button type="button" class="btn-logout" id="btn-logout">Logout</button>
+            </div>
+            <div class="auth-links" id="auth-links">
+                <a href="#" class="btn-nav" id="btn-open-login">Login</a>
+                <a href="#" class="btn-nav btn-signup" id="btn-open-signup">Sign up</a>
+            </div>
+        </div>
     </header>
+
+    <!-- Login modal -->
+    <div class="auth-overlay" id="login-overlay" aria-hidden="true">
+        <div class="auth-modal-wrapper">
+            <button type="button" class="auth-close" id="login-close" aria-label="Close">×</button>
+            <div class="auth-modal">
+                <h2>Login</h2>
+                <form class="auth-form" id="login-form">
+                    <div class="auth-error" id="login-error" style="display: none;"></div>
+                    <div class="auth-success" id="login-success" style="display: none;"></div>
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" name="email" required placeholder="you@example.com" autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" required placeholder="••••••••" autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="btn-submit">Login</button>
+                </form>
+                <p class="auth-footer">Don't have an account? <a href="#" id="switch-to-signup">Sign up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign up modal -->
+    <div class="auth-overlay" id="signup-overlay" aria-hidden="true">
+        <div class="auth-modal-wrapper">
+            <button type="button" class="auth-close" id="signup-close" aria-label="Close">×</button>
+            <div class="auth-modal">
+                <h2>Sign up</h2>
+                <form class="auth-form" id="signup-form">
+                    <div class="auth-error" id="signup-error" style="display: none;"></div>
+                    <div class="auth-success" id="signup-success" style="display: none;"></div>
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" name="email" required placeholder="you@example.com" autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" name="password" required placeholder="Min 6 characters" minlength="6" autocomplete="new-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password-confirm">Confirm password</label>
+                        <input type="password" id="signup-password-confirm" name="passwordConfirm" required placeholder="••••••••" autocomplete="new-password">
+                    </div>
+                    <button type="submit" class="btn-submit">Create account</button>
+                </form>
+                <p class="auth-footer">Already have an account? <a href="#" id="switch-to-login">Login</a></p>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <div class="hero">
-            <h1>URJA NIDHI - The Energy Treasure</h1>
-            <p>REAL-TIME MONITORING • WEATHER PREDICTION • SMART AGRICULTURE</p>
+            <h1>Urja Nidhi — Your Farm & Biogas Companion</h1>
+            <p>Weather • Crops • Biogas • Manure — All in One Place</p>
         </div>
         
         <div class="page-tabs">
-            <button class="tab-button active" data-page="overview">Overview</button>
-            <button class="tab-button" data-page="data">Data Comparison</button>
+            <button type="button" class="tab-button active" data-page="dashboard">Dashboard</button>
+            <button type="button" class="tab-button" data-page="weather">Weather</button>
+            <button type="button" class="tab-button" data-page="crops">Crops</button>
+            <button type="button" class="tab-button" data-page="insights">Insights</button>
+            <button type="button" class="tab-button" data-page="data">Data</button>
         </div>
 
-        <div class="page-section active" id="page-overview">
-
-        <!-- Sensor Dashboard -->
-        <div class="dashboard-grid" id="dashboard">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">METHANE SENSOR</div>
-                    <div class="card-icon">🔥</div>
-                </div>
-                <div>
-                    <span class="sensor-value" id="methane-value">0</span>
-                    <span class="sensor-unit">%</span>
-                </div>
-                <span class="sensor-status status-normal" id="methane-status">NORMAL</span>
-                <span class="live-indicator"></span>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">PRESSURE</div>
-                    <div class="card-icon">⚡</div>
-                </div>
-                <div>
-                    <span class="sensor-value" id="pressure-value">0</span>
-                    <span class="sensor-unit">kPa</span>
-                </div>
-                <span class="sensor-status status-normal" id="pressure-status">NORMAL</span>
-                <span class="live-indicator"></span>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">TEMPERATURE</div>
-                    <div class="card-icon">🌡️</div>
-                </div>
-                <div>
-                    <span class="sensor-value" id="temp-value">0</span>
-                    <span class="sensor-unit">°C</span>
-                </div>
-                <span class="sensor-status status-normal" id="temp-status">NORMAL</span>
-                <span class="live-indicator"></span>
-            </div>
-        </div>
-
-        <!-- Weather & Rainfall Prediction -->
-        <div class="dashboard-grid" id="weather">
-            <div class="card large-card">
-                <div class="card-header">
-                    <div class="card-title">WEATHER & RAINFALL PREDICTION</div>
-                    <div class="card-icon">🌦️</div>
-                </div>
-                <div class="weather-container">
-                    <div class="weather-main">
-                        <div class="weather-temp" id="weather-temp">--°C</div>
-                        <div class="weather-desc" id="weather-desc">Loading weather data...</div>
-                        <div class="weather-details">
-                            <div class="weather-item">
-                                <span>💧</span>
-                                <span>Humidity: <strong id="humidity">--%</strong></span>
-                            </div>
-                            <div class="weather-item">
-                                <span>💨</span>
-                                <span>Wind: <strong id="wind">-- km/h</strong></span>
-                            </div>
-                            <div class="weather-item">
-                                <span>☁️</span>
-                                <span>Clouds: <strong id="clouds">--%</strong></span>
-                            </div>
-                            <div class="weather-item">
-                                <span>🌡️</span>
-                                <span>Feels: <strong id="feels-like">--°C</strong></span>
-                            </div>
-                        </div>
+        <!-- Page: Dashboard (Sensors) -->
+        <div class="page-section active" id="page-dashboard">
+            <div class="dashboard-grid" id="dashboard">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">METHANE SENSOR</div>
+                        <div class="card-icon">🔥</div>
                     </div>
-                    <div class="rainfall-prediction">
-                        <div style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.5); font-family: 'Space Mono', monospace;">AI RAINFALL FORECAST</div>
-                        <div class="rainfall-value" id="rainfall-prediction">Analyzing...</div>
-                        <div class="rainfall-confidence" id="rainfall-confidence">Computing probability...</div>
-                        <div class="rainfall-confidence" id="rainfall-next" style="margin-top: 0.5rem;">Next 7 days: <strong id="rainfall-7day">--</strong></div>
+                    <div>
+                        <span class="sensor-value" id="methane-value">0</span>
+                        <span class="sensor-unit">%</span>
                     </div>
+                    <span class="sensor-status status-normal" id="methane-status">NORMAL</span>
+                    <span class="live-indicator"></span>
                 </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">BIOGAS YIELD</div>
-                    <div class="card-icon">⚗️</div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">PRESSURE</div>
+                        <div class="card-icon">⚡</div>
+                    </div>
+                    <div>
+                        <span class="sensor-value" id="pressure-value">0</span>
+                        <span class="sensor-unit">kPa</span>
+                    </div>
+                    <span class="sensor-status status-normal" id="pressure-status">NORMAL</span>
+                    <span class="live-indicator"></span>
                 </div>
-                <div>
-                    <span class="sensor-value" id="biogas-yield">0.0</span>
-                    <span class="sensor-unit">m³/day</span>
-                </div>
-                <div style="margin-top: 1rem; font-size: 0.9rem; color: rgba(255, 255, 255, 0.6);">
-                    Energy Value: <strong style="color: var(--warning);">₹<span id="energy-value">0</span></strong>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">TEMPERATURE</div>
+                        <div class="card-icon">🌡️</div>
+                    </div>
+                    <div>
+                        <span class="sensor-value" id="temp-value">0</span>
+                        <span class="sensor-unit">°C</span>
+                    </div>
+                    <span class="sensor-status status-normal" id="temp-status">NORMAL</span>
+                    <span class="live-indicator"></span>
                 </div>
             </div>
         </div>
 
-        <!-- NPK Analysis -->
-        <div class="dashboard-grid">
-            <div class="card full-card">
-                <div class="card-header">
-                    <div class="card-title">MANURE NUTRIENT ANALYSIS (NPK)</div>
-                    <div class="card-icon">🌱</div>
-                </div>
-                <div class="npk-container">
-                    <div class="npk-bars">
-                        <div class="npk-bar">
-                            <div class="npk-label">
-                                <span>Nitrogen (N)</span>
-                                <span class="npk-value" id="nitrogen-value">0%</span>
-                            </div>
-                            <div class="npk-track">
-                                <div class="npk-fill nitrogen" id="nitrogen-fill" style="width: 0%"></div>
+        <!-- Page: Weather -->
+        <div class="page-section" id="page-weather">
+            <div class="dashboard-grid" id="weather">
+                <div class="card large-card">
+                    <div class="card-header">
+                        <div class="card-title">WEATHER & RAINFALL PREDICTION</div>
+                        <div class="card-icon">🌦️</div>
+                    </div>
+                    <div class="weather-container">
+                        <div class="weather-main">
+                            <div class="weather-temp" id="weather-temp">--°C</div>
+                            <div class="weather-desc" id="weather-desc">Loading weather data...</div>
+                            <div class="weather-details">
+                                <div class="weather-item">
+                                    <span>💧</span>
+                                    <span>Humidity: <strong id="humidity">--%</strong></span>
+                                </div>
+                                <div class="weather-item">
+                                    <span>💨</span>
+                                    <span>Wind: <strong id="wind">-- km/h</strong></span>
+                                </div>
+                                <div class="weather-item">
+                                    <span>☁️</span>
+                                    <span>Clouds: <strong id="clouds">--%</strong></span>
+                                </div>
+                                <div class="weather-item">
+                                    <span>🌡️</span>
+                                    <span>Feels: <strong id="feels-like">--°C</strong></span>
+                                </div>
                             </div>
                         </div>
-                        <div class="npk-bar">
-                            <div class="npk-label">
-                                <span>Phosphorus (P)</span>
-                                <span class="npk-value" id="phosphorus-value">0%</span>
-                            </div>
-                            <div class="npk-track">
-                                <div class="npk-fill phosphorus" id="phosphorus-fill" style="width: 0%"></div>
-                            </div>
-                        </div>
-                        <div class="npk-bar">
-                            <div class="npk-label">
-                                <span>Potassium (K)</span>
-                                <span class="npk-value" id="potassium-value">0%</span>
-                            </div>
-                            <div class="npk-track">
-                                <div class="npk-fill potassium" id="potassium-fill" style="width: 0%"></div>
-                            </div>
+                        <div class="rainfall-prediction">
+                            <div style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Rainfall forecast</div>
+                            <div class="rainfall-value" id="rainfall-prediction">Analyzing...</div>
+                            <div class="rainfall-confidence" id="rainfall-confidence">Computing probability...</div>
+                            <div class="rainfall-confidence" id="rainfall-next" style="margin-top: 0.5rem;">Next 7 days: <strong id="rainfall-7day">--</strong></div>
                         </div>
                     </div>
-                    <div class="npk-recommendation">
-                        <div class="recommendation-title">FERTILIZER RECOMMENDATION</div>
-                        <div class="recommendation-text" id="npk-recommendation">
-                            Analyzing soil and manure data to provide optimal fertilizer recommendations...
-                        </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">BIOGAS YIELD</div>
+                        <div class="card-icon">⚗️</div>
+                    </div>
+                    <div>
+                        <span class="sensor-value" id="biogas-yield">0.0</span>
+                        <span class="sensor-unit">m³/day</span>
+                    </div>
+                    <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">
+                        Energy Value: <strong style="color: var(--accent);">₹<span id="energy-value">0</span></strong>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Crop Recommendations -->
-        <div class="dashboard-grid" id="crops">
-            <div class="card full-card">
-                <div class="card-header">
-                    <div class="card-title">AI CROP CYCLE RECOMMENDATIONS</div>
-                    <div class="card-icon">🌾</div>
+        <!-- Page: Crops (NPK + Crop recommendations) -->
+        <div class="page-section" id="page-crops">
+            <div class="dashboard-grid">
+                <div class="card full-card">
+                    <div class="card-header">
+                        <div class="card-title">MANURE NUTRIENT ANALYSIS (NPK)</div>
+                        <div class="card-icon">🌱</div>
+                    </div>
+                    <div class="npk-container">
+                        <div class="npk-bars">
+                            <div class="npk-bar">
+                                <div class="npk-label">
+                                    <span>Nitrogen (N)</span>
+                                    <span class="npk-value" id="nitrogen-value">0%</span>
+                                </div>
+                                <div class="npk-track">
+                                    <div class="npk-fill nitrogen" id="nitrogen-fill" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="npk-bar">
+                                <div class="npk-label">
+                                    <span>Phosphorus (P)</span>
+                                    <span class="npk-value" id="phosphorus-value">0%</span>
+                                </div>
+                                <div class="npk-track">
+                                    <div class="npk-fill phosphorus" id="phosphorus-fill" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="npk-bar">
+                                <div class="npk-label">
+                                    <span>Potassium (K)</span>
+                                    <span class="npk-value" id="potassium-value">0%</span>
+                                </div>
+                                <div class="npk-track">
+                                    <div class="npk-fill potassium" id="potassium-fill" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="npk-recommendation">
+                            <div class="recommendation-title">FERTILIZER RECOMMENDATION</div>
+                            <div class="recommendation-text" id="npk-recommendation">
+                                Analyzing soil and manure data to provide optimal fertilizer recommendations...
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.6); margin-bottom: 1.5rem;">
-                    Based on weather conditions, NPK values, and seasonal patterns
-                </div>
-                <div class="crop-grid" id="crop-recommendations">
-                    <!-- Crops will be populated by JavaScript -->
+            </div>
+            <div class="dashboard-grid" id="crops">
+                <div class="card full-card">
+                    <div class="card-header">
+                        <div class="card-title">Crop recommendations</div>
+                        <div class="card-icon">🌾</div>
+                    </div>
+                    <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; font-weight: 600;">
+                        Based on weather, soil nutrients (NPK), and seasonal patterns
+                    </div>
+                    <div class="crop-grid" id="crop-recommendations">
+                        <!-- Crops will be populated by JavaScript -->
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- AI Insights -->
-        <div class="dashboard-grid" id="insights">
-            <div class="card full-card">
-                <div class="card-header">
-                    <div class="card-title">AI-POWERED INSIGHTS</div>
-                    <div class="card-icon">🤖</div>
-                </div>
-                <div id="ai-insights">
-                    <!-- Insights will be populated by JavaScript -->
+        <!-- Page: Insights -->
+        <div class="page-section" id="page-insights">
+            <div class="dashboard-grid" id="insights">
+                <div class="card full-card">
+                    <div class="card-header">
+                        <div class="card-title">Insights for your farm</div>
+                        <div class="card-icon">🌱</div>
+                    </div>
+                    <div id="ai-insights">
+                        <!-- Insights will be populated by JavaScript -->
+                    </div>
                 </div>
             </div>
         </div>
-        </div> <!-- end page-overview -->
 
+        <!-- Page: Data -->
         <div class="page-section" id="page-data">
             <div class="data-table-wrapper">
-                <div class="data-table-title">Biogas & Agriculture Attribute Comparison</div>
+                <div class="data-table-title">Biogas & farm data summary</div>
                 <table class="data-table">
                     <thead>
                         <tr>
@@ -1055,22 +1359,27 @@
             topCrop: ''
         };
 
+        function switchPage(targetPage) {
+            const buttons = document.querySelectorAll('.tab-button');
+            const sections = document.querySelectorAll('.page-section');
+
+            buttons.forEach(b => b.classList.toggle('active', b.getAttribute('data-page') === targetPage));
+            sections.forEach(section => {
+                section.classList.toggle('active', section.id === 'page-' + targetPage);
+            });
+        }
+
         function setupPageTabs() {
             const buttons = document.querySelectorAll('.tab-button');
             const sections = document.querySelectorAll('.page-section');
 
-            buttons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const target = button.getAttribute('data-page');
+            function goToPage(target) {
+                if (!target) return;
+                switchPage(target);
+            }
 
-                    buttons.forEach(b => b.classList.toggle('active', b === button));
-                    sections.forEach(section => {
-                        section.classList.toggle(
-                            'active',
-                            section.id === `page-${target}`
-                        );
-                    });
-                });
+            buttons.forEach(button => {
+                button.addEventListener('click', () => goToPage(button.getAttribute('data-page')));
             });
         }
         
@@ -1431,6 +1740,82 @@
             document.getElementById('ai-insights').innerHTML = insightsHTML;
         }
 
+        // Theme toggle (dark/light)
+        function initTheme() {
+            const saved = localStorage.getItem('urja-theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (saved === 'dark' || (!saved && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+            const btn = document.getElementById('theme-toggle');
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                    if (isDark) {
+                        document.documentElement.removeAttribute('data-theme');
+                        localStorage.setItem('urja-theme', 'light');
+                    } else {
+                        document.documentElement.setAttribute('data-theme', 'dark');
+                        localStorage.setItem('urja-theme', 'dark');
+                    }
+                });
+            }
+        }
+        initTheme();
+
+        // Auth modals: open/close (does not depend on Firebase)
+        function openAuthModal(id) {
+            var el = document.getElementById(id);
+            if (el) { el.classList.add('is-open'); el.setAttribute('aria-hidden', 'false'); }
+        }
+        function closeAuthModal(id) {
+            var el = document.getElementById(id);
+            if (el) { el.classList.remove('is-open'); el.setAttribute('aria-hidden', 'true'); }
+        }
+        window.openAuthModal = openAuthModal;
+        window.closeAuthModal = closeAuthModal;
+
+        var btnOpenLogin = document.getElementById('btn-open-login');
+        var btnOpenSignup = document.getElementById('btn-open-signup');
+        if (btnOpenLogin) {
+            btnOpenLogin.addEventListener('click', function(e) {
+                e.preventDefault();
+                var form = document.getElementById('login-form');
+                if (form) { form.reset(); }
+                var err = document.getElementById('login-error');
+                var ok = document.getElementById('login-success');
+                if (err) err.style.display = 'none';
+                if (ok) ok.style.display = 'none';
+                openAuthModal('login-overlay');
+            });
+        }
+        if (btnOpenSignup) {
+            btnOpenSignup.addEventListener('click', function(e) {
+                e.preventDefault();
+                var form = document.getElementById('signup-form');
+                if (form) { form.reset(); }
+                var err = document.getElementById('signup-error');
+                var ok = document.getElementById('signup-success');
+                if (err) err.style.display = 'none';
+                if (ok) ok.style.display = 'none';
+                openAuthModal('signup-overlay');
+            });
+        }
+        var loginClose = document.getElementById('login-close');
+        var signupClose = document.getElementById('signup-close');
+        if (loginClose) loginClose.addEventListener('click', function() { closeAuthModal('login-overlay'); });
+        if (signupClose) signupClose.addEventListener('click', function() { closeAuthModal('signup-overlay'); });
+        var loginOverlay = document.getElementById('login-overlay');
+        var signupOverlay = document.getElementById('signup-overlay');
+        if (loginOverlay) loginOverlay.addEventListener('click', function(e) { if (e.target === loginOverlay) closeAuthModal('login-overlay'); });
+        if (signupOverlay) signupOverlay.addEventListener('click', function(e) { if (e.target === signupOverlay) closeAuthModal('signup-overlay'); });
+        var switchToSignup = document.getElementById('switch-to-signup');
+        var switchToLogin = document.getElementById('switch-to-login');
+        if (switchToSignup) switchToSignup.addEventListener('click', function(e) { e.preventDefault(); closeAuthModal('login-overlay'); openAuthModal('signup-overlay'); });
+        if (switchToLogin) switchToLogin.addEventListener('click', function(e) { e.preventDefault(); closeAuthModal('signup-overlay'); openAuthModal('login-overlay'); });
+
         // Initialize
         setupPageTabs();
         fetchLiveSensorData();
@@ -1442,20 +1827,102 @@
         setInterval(fetchWeatherData, 600000);
     </script>
 
- <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
 
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBiaKbd7QgKRIs2D3PCE5kWrH2NXqOVeYg",
-  databaseURL: "https://urja-nidhi-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "urja-nidhi"
-};
+  // Firebase config — paste your full config from Firebase Console > Project settings
+  // Enable Email/Password sign-in in Authentication > Sign-in method for login/signup to work
+  const firebaseConfig = {
+    apiKey: "AIzaSyBiaKbd7QgKRIs2D3PCE5kWrH2NXqOVeYg",
+    authDomain: "urja-nidhi.firebaseapp.com",
+    databaseURL: "https://urja-nidhi-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "urja-nidhi"
+  };
 
-  // Your Firebase Config
-  // Initialize Firebase
   const app = firebase.initializeApp(firebaseConfig);
   const database = firebase.database();
+  const auth = firebase.auth();
+
+  // Auth state: when you add Firebase Auth and enable Email/Password in Console, this runs on login/logout
+  auth.onAuthStateChanged(function(user) {
+    const authUserEl = document.getElementById('auth-user');
+    const userEmailEl = document.getElementById('user-email');
+    if (user) {
+      authUserEl.classList.add('is-logged-in');
+      userEmailEl.textContent = user.email || user.uid;
+    } else {
+      authUserEl.classList.remove('is-logged-in');
+      userEmailEl.textContent = '';
+    }
+  });
+
+  // ——— Login / Sign up: form submit and logout (uses Firebase Auth) ———
+  function showAuthError(containerId, message) {
+    var c = document.getElementById(containerId);
+    var s = containerId.replace('-error', '-success');
+    var successEl = document.getElementById(s);
+    if (successEl) successEl.style.display = 'none';
+    if (c) { c.textContent = message || 'Something went wrong.'; c.style.display = 'block'; }
+  }
+  function showAuthSuccess(containerId, message) {
+    var c = document.getElementById(containerId);
+    var e = containerId.replace('-success', '-error');
+    var errEl = document.getElementById(e);
+    if (errEl) errEl.style.display = 'none';
+    if (c) { c.textContent = message || 'Success'; c.style.display = 'block'; }
+  }
+
+  var loginForm = document.getElementById('login-form');
+  if (loginForm) {
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var email = document.getElementById('login-email').value.trim();
+      var password = document.getElementById('login-password').value;
+      var errEl = document.getElementById('login-error');
+      var okEl = document.getElementById('login-success');
+      if (errEl) errEl.style.display = 'none';
+      if (okEl) okEl.style.display = 'none';
+      auth.signInWithEmailAndPassword(email, password).then(function() {
+        showAuthSuccess('login-success', 'Welcome back.');
+        setTimeout(function() { window.closeAuthModal('login-overlay'); }, 600);
+      }).catch(function(err) {
+        showAuthError('login-error', err.message || 'Login failed.');
+      });
+    });
+  }
+
+  var signupForm = document.getElementById('signup-form');
+  if (signupForm) {
+    signupForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var email = document.getElementById('signup-email').value.trim();
+      var password = document.getElementById('signup-password').value;
+      var confirm = document.getElementById('signup-password-confirm').value;
+      var errEl = document.getElementById('signup-error');
+      var okEl = document.getElementById('signup-success');
+      if (errEl) errEl.style.display = 'none';
+      if (okEl) okEl.style.display = 'none';
+      if (password !== confirm) {
+        showAuthError('signup-error', 'Passwords do not match.');
+        return;
+      }
+      if (password.length < 6) {
+        showAuthError('signup-error', 'Password must be at least 6 characters.');
+        return;
+      }
+      auth.createUserWithEmailAndPassword(email, password).then(function() {
+        showAuthSuccess('signup-success', 'Account created. You are logged in.');
+        setTimeout(function() { window.closeAuthModal('signup-overlay'); }, 600);
+      }).catch(function(err) {
+        showAuthError('signup-error', err.message || 'Sign up failed.');
+      });
+    });
+  }
+
+  var btnLogout = document.getElementById('btn-logout');
+  if (btnLogout) btnLogout.addEventListener('click', function() { auth.signOut(); });
 </script>
    
 </body>
