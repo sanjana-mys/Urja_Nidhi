@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend/urja_nidhi_ensemble_model.pkl:/app/urja_nidhi_ensemble_model.pkl:ro
+    environment:
+      - FLASK_ENV=development
+    restart: unless-stopped

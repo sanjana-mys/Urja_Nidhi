@@ -4,11 +4,12 @@ import joblib
 import numpy as np
 import os
 
-app = Flask(__name__, template_folder='backend/templates')
+CWD = os.path.dirname(__file__)
+app = Flask(__name__, template_folder=os.path.join(CWD, 'templates'))
 CORS(app)
 
 # Load model once when server starts
-model_path = "backend/urja_nidhi_ensemble_model.pkl"
+model_path = os.path.join(CWD, "urja_nidhi_ensemble_model.pkl")
 try:
     model = joblib.load(model_path)
     print(f"Model loaded successfully from {model_path}")
